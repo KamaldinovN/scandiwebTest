@@ -23,15 +23,6 @@ class SingleProduct extends Component {
     alert("Added to cart");
   };
 
-  addClass = (e) => {
-    this.setState({
-      attributes: this.state.attributes.map((attributes) => ({
-        ...attributes,
-        isActive: e.target.id === attributes.items.id,
-      })),
-    });
-  };
-
   handleCover = (event) => {
     this.setState({ cover: event.target.src });
   };

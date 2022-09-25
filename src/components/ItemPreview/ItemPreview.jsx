@@ -7,10 +7,6 @@ class ItemPreview extends Component {
     product: this.props.products,
   };
 
-  handleAttributes = () => {
-    //  alert('Selected');
-  };
-
   increment = () => {
     this.setState((state) => {
       return {
@@ -54,7 +50,6 @@ class ItemPreview extends Component {
                               item.isActive ? " radio active" : styles.radio
                             }
                             key={item.id}
-                            onClick={this.addClass}
                             style={{ backgroundColor: `${item.value}` }}
                             title={item.displayValue}
                           >

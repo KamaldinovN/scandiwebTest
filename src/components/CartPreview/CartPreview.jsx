@@ -76,7 +76,6 @@ class CartPreview extends Component {
 
   render() {
     const products = this.props.products;
-
     return (
       <div className={styles.wrapper} ref={this.container}>
         <button

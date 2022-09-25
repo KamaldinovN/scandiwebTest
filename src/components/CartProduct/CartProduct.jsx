@@ -17,16 +17,15 @@ class CartProduct extends Component {
   }
   render() {
     const products = this.props.products;
-
     return (
       <>
         <ul>
           {products.map((product) => {
             return (
               <ItemCart
-                currency={this.props.currency}
                 product={product}
                 key={product.id}
+                currency={this.props.currency}
               />
             );
           })}
