@@ -1,0 +1,41 @@
+
+.cart__invoice {
+
+  min-height: 190px;
+  padding: 20px 0;
+
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  border-top: 1px solid #e5e5e5;
+}
+.cart__invoice_order {
+  min-width: 279px;
+  background: #5ECE7B;
+  padding: 16px 32px;
+  margin-bottom: 10px;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 120%;
+  text-align: center;
+  color: #FFFFFF;
+
+  border: none;
+  cursor: pointer;}
+
+.cart__invoice_order:hover,
+.cart__invoice_order:focus {
+  opacity: 0.6;
+  transition: opacity 250ms linear;
+}
+
+.quantity, .total, .tax{
+  font-weight: bold;
+}
+

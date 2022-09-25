@@ -1,0 +1,45 @@
+import { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { graphql } from "@apollo/client/react/hoc";
+
+import SingleProduct from "../../components/SingleProduct";
+import Loader from "../../components/Loader";
+
+import styles from "./Product.module.css";
+import { LOAD_PRODUCT } from "../../GraphQl";
+
+class Product extends Component {
+  componentDidMount() {
+    document.title = "Product | Nazar Kamaldinov test";
+  }
+
+  render() {
+    const { data } = this.props;
+    const { loading, error } = data;
+
+    return (
+      <main className={styles.main}>
+        {data.product && (
+          <SingleProduct
+            product={data.product}
+            currency={this.props.currency}
+          />
+        )}
+
+        {error && <p>{JSON.stringify(data?.error?.message)}</p>}
+
+        {loading && <Loader />}
+      </main>
+    );
+  }
+}
+
+export default withRouter(
+  graphql(LOAD_PRODUCT, {
+    options: (props) => ({
+      variables: {
+        productId: props.match.params.productId,
+      },
+    }),
+  })(Product)
+);
