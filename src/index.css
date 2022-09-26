@@ -1,7 +1,7 @@
 html {
-  scroll-behavior: smooth;
-  scrollbar-color: #5ece7b #f0f1f3;
-  scrollbar-width: thin;
+  /*scroll-behavior: smooth;*/
+  /*scrollbar-color: #5ece7b #f0f1f3;*/
+  /*scrollbar-width: thin;*/
 }
 
 *::-webkit-scrollbar {
@@ -17,9 +17,6 @@ html {
   background-color: #43464e;
 }
 
-*::-webkit-scrollbar-track {
-  background-color: #f0f1f3;
-}
 
 body {
   font-family: 'Raleway', sans-serif;

@@ -7,7 +7,9 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct(state, { payload }) {
-      state.products.push(payload);
+      if (state.products?.find((obj) => obj.name === payload.name)) {
+        alert(`Already in cart`);
+      } else state.products.push(payload);
     },
     deleteItem(state, { payload }) {
       state.products = state.products.filter((item) => item.id !== payload);
