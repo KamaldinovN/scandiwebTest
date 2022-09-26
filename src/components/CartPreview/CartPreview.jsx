@@ -77,76 +77,85 @@ class CartPreview extends Component {
   render() {
     const products = this.props.products;
     return (
-      <div className={styles.wrapper} ref={this.container}>
-        <button
-          className={styles.button}
-          onClick={this.props.products.length ? this.handleCartClick : null}
-        >
-          <CartImage
-            className={styles.cart}
-            title={this.props.products.length ? "My bag" : "Card is empty"}
-            alt={this.props.products.length ? "My bag" : "Card is empty"}
-          />
+      <>
+        <div className={styles.wrapper} ref={this.container}>
+          <button
+            className={styles.button}
+            onClick={this.props.products.length ? this.handleCartClick : null}
+          >
+            <CartImage
+              className={styles.cart}
+              title={this.props.products.length ? "My bag" : "Card is empty"}
+              alt={this.props.products.length ? "My bag" : "Card is empty"}
+            />
 
-          {this.props.products.length ? (
-            <span className={styles.counter}>{this.props.products.length}</span>
-          ) : null}
-        </button>
+            {this.props.products.length ? (
+              <span className={styles.counter}>
+                {this.props.products.length}
+              </span>
+            ) : null}
+          </button>
 
-        {this.state.open && (
-          <div className={styles.backdrop} onClick={this.handleClickBackdrop}>
-            <div className={styles.modal}>
-              <p className={styles.title}>
-                <span className={styles.title__name}>My Bag</span>,{" "}
-                {products.length} items
-              </p>
+          {this.state.open && (
+            <div className={styles.backdrop} onClick={this.handleClickBackdrop}>
+              <div className={styles.modal}>
+                <p className={styles.title}>
+                  <span className={styles.title__name}>My Bag</span>,{" "}
+                  {products.length} items
+                </p>
 
-              {products.map((product) => {
-                return (
-                  <ItemPreview
-                    products={product}
-                    key={product.id}
-                    currency={this.props.currency}
-                  />
-                );
-              })}
-              <div className={styles.total}>
-                <span className={styles.total__text}>Total</span>
-                <span className={styles.total__price}>
-                  {products[0].prices[this.props.currency].currency.symbol}
-                  {this.Total().toFixed(2)}
-                </span>
-              </div>
+                {products.length ? (
+                  products.map((product) => {
+                    return (
+                      <ItemPreview
+                        products={product}
+                        key={product.id}
+                        currency={this.props.currency}
+                      />
+                    );
+                  })
+                ) : (
+                  <div className={styles.empty}>Empty cart</div>
+                )}
+                {products.length ? (
+                  <div className={styles.total}>
+                    <span className={styles.total__text}>Total</span>
+                    <span className={styles.total__price}>
+                      {products[0].prices[this.props.currency].currency.symbol}
+                      {this.Total().toFixed(2)}
+                    </span>
+                  </div>
+                ) : null}
+                <div className={styles.buttons}>
+                  <Link
+                    to={routes.cart}
+                    className={`${styles.buttons__link} ${styles.buttons__view}`}
+                    onClick={this.handleCartClick}
+                  >
+                    View bag
+                  </Link>
 
-              <div className={styles.buttons}>
-                <Link
-                  to={routes.cart}
-                  className={`${styles.buttons__link} ${styles.buttons__view}`}
+                  <Link
+                    to={routes.checkout}
+                    className={`${styles.buttons__link} ${styles.buttons__check}`}
+                    onClick={this.handleCartClick}
+                  >
+                    Check out
+                  </Link>
+                </div>
+
+                <button
+                  type="button"
+                  className={styles.close}
                   onClick={this.handleCartClick}
                 >
-                  View bag
-                </Link>
-
-                <Link
-                  to={routes.checkout}
-                  className={`${styles.buttons__link} ${styles.buttons__check}`}
-                  onClick={this.handleCartClick}
-                >
-                  Check out
-                </Link>
+                  <ArrowImage />
+                </button>
               </div>
-
-              <button
-                type="button"
-                className={styles.close}
-                onClick={this.handleCartClick}
-              >
-                <ArrowImage />
-              </button>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </>
     );
   }
 }

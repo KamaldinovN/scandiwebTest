@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import parse from "html-react-parser";
 
-import { addProductSuccess } from "../../redux/cart/cart_action";
-
 import styles from "./SingleProduct.module.css";
+import { addProduct } from "../../redux/cart/cart_reducer";
 
 class SingleProduct extends Component {
   state = {
@@ -84,7 +83,7 @@ class SingleProduct extends Component {
                               item.isActive ? " radio active" : styles.radio
                             }
                             key={item.id}
-                            onClick={this.addClass}
+                            onClick={this.toggleClass}
                             style={{ backgroundColor: `${item.value}` }}
                             title={item.displayValue}
                           >
@@ -124,7 +123,7 @@ class SingleProduct extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchToCart: (product) => dispatch(addProductSuccess(product)),
+  dispatchToCart: (product) => dispatch(addProduct(product)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(SingleProduct));

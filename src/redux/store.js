@@ -1,24 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import sessionStorage from 'redux-persist/lib/storage/session';
-import logger from 'redux-logger';
-import cart from './cart/cart_reducer';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import sessionStorage from "redux-persist/lib/storage/session";
+import logger from "redux-logger";
+
+import cartReducer from "./cart/cart_reducer";
 
 const cartPersistConfig = {
-  key: 'cart',
+  key: "cart",
   storage: sessionStorage,
-  whitelist: ['products'],
+  whitelist: ["products"],
 };
+
+const rootReducer = combineReducers({
+  cart: cartReducer,
+});
 
 const store = configureStore({
   reducer: {
-    cart: persistReducer(cartPersistConfig, cart),
+    cart: persistReducer(cartPersistConfig, rootReducer),
   },
-
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 
-  devTools: process.env.NODE_ENV === 'development',
+  devTools: process.env.NODE_ENV === "development",
 });
 
 const persistor = persistStore(store);

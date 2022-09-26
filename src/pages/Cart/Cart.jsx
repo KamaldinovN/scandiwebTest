@@ -13,7 +13,6 @@ class Cart extends Component {
       <main>
         <section className={styles.section}>
           <h1 className={styles.title}>Cart</h1>
-
           <CartProduct currency={this.props.currency} />
         </section>
       </main>

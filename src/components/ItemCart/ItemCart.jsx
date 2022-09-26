@@ -3,6 +3,8 @@ import { Component } from "react";
 
 import { ReactComponent as ArrowNext } from "../../images/arrow2.svg";
 import { ReactComponent as ArrowPrev } from "../../images/arrow1.svg";
+import { connect } from "react-redux";
+import { deleteItem } from "../../redux/cart/cart_reducer";
 
 class ItemCart extends Component {
   constructor(props) {
@@ -10,12 +12,14 @@ class ItemCart extends Component {
     this.setNextPhoto = this.setNextPhoto.bind(this);
     this.setPrevPhoto = this.setPrevPhoto.bind(this);
     this.state = {
+      product: this.props.product,
       quantity: 1,
       photoId: 0,
     };
   }
+
   handleAttributes = () => {
-    //  alert('Selected');
+    alert("Selected");
   };
   setNextPhoto() {
     this.setState({
@@ -44,7 +48,7 @@ class ItemCart extends Component {
     });
   };
 
-  decrement = () => {
+  decrement = (e) => {
     this.setState((state) => {
       if (state.quantity > 1) {
         return {
@@ -52,9 +56,14 @@ class ItemCart extends Component {
         };
       }
     });
+    if (this.state.quantity <= 1) {
+      window.confirm(`Do you wont delete from cart ${e.target.id} ?`)
+        ? this.props.dispatchFromCart(e.target.id)
+        : console.log("+");
+    }
   };
   render() {
-    const product = this.props.product;
+    const product = this.state.product;
     return (
       <div className={styles.item} key={product.id}>
         <div className={styles.product}>
@@ -108,6 +117,7 @@ class ItemCart extends Component {
               {this.state.quantity}
             </span>
             <button
+              id={this.props.product.id}
               type="button"
               className={styles.counters__button}
               onClick={this.decrement}
@@ -144,5 +154,8 @@ class ItemCart extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFromCart: (id) => dispatch(deleteItem(id)),
+});
 
-export default ItemCart;
+export default connect(null, mapDispatchToProps)(ItemCart);

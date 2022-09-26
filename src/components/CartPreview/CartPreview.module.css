@@ -169,3 +169,9 @@
 .hidden {
   overflow: hidden;
 }
+
+.empty{
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}

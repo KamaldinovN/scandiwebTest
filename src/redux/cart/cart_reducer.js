@@ -1,34 +1,20 @@
-import { combineReducers } from 'redux';
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-import {
-  addProductRequest,
-  addProductSuccess,
-  addProductError,
-} from './cart_action';
-
-const initial = {
-  products: [],
-};
-
-const products = createReducer(initial.products, {
-  [addProductSuccess]: (state, { payload }) => [...state, payload],
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: {
+    products: [],
+  },
+  reducers: {
+    addProduct(state, { payload }) {
+      state.products.push(payload);
+    },
+    deleteItem(state, { payload }) {
+      state.products = state.products.filter((item) => item.id !== payload);
+    },
+  },
 });
 
-const error = createReducer(false, {
-  [addProductRequest]: () => false,
-  [addProductSuccess]: () => false,
-  [addProductError]: () => true,
-});
+export const { addProduct, deleteItem } = cartSlice.actions;
 
-const isLoading = createReducer(false, {
-  [addProductRequest]: () => true,
-  [addProductSuccess]: () => false,
-  [addProductError]: () => false,
-});
-
-export default combineReducers({
-  products,
-  error,
-  isLoading,
-});
+export default cartSlice.reducer;

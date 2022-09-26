@@ -2,11 +2,10 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
-import { addProductSuccess } from "../../redux/cart/cart_action";
-
 import styles from "./ProductsItem.module.css";
 
 import { ReactComponent as EmptyCart } from "../../images/empty-cart.svg";
+import { addProduct } from "../../redux/cart/cart_reducer";
 
 class ProductsItem extends Component {
   addToCart = (product) => {
@@ -74,7 +73,7 @@ class ProductsItem extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchToCart: (product) => dispatch(addProductSuccess(product)),
+  dispatchToCart: (product) => dispatch(addProduct(product)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(ProductsItem));

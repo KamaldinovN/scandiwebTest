@@ -1,5 +1,7 @@
 import styles from "./ItemPreview.module.css";
 import { Component } from "react";
+import { deleteItem } from "../../redux/cart/cart_reducer";
+import { connect } from "react-redux";
 
 class ItemPreview extends Component {
   state = {
@@ -15,7 +17,7 @@ class ItemPreview extends Component {
     });
   };
 
-  decrement = () => {
+  decrement = (e) => {
     this.setState((state) => {
       if (state.quantity > 1) {
         return {
@@ -23,6 +25,11 @@ class ItemPreview extends Component {
         };
       }
     });
+    if (this.state.quantity <= 1) {
+      window.confirm(`Do you wont delete from cart ${e.target.id} ?`)
+        ? this.props.dispatchFromCart(e.target.id)
+        : console.log("+");
+    }
   };
   render() {
     return (
@@ -77,6 +84,7 @@ class ItemPreview extends Component {
           <span className={styles.counters__count}>{this.state.quantity}</span>
           <button
             type="button"
+            id={this.state.product.id}
             className={`${styles.square__button} ${styles.counters__down}`}
             onClick={this.decrement}
           >
@@ -97,5 +105,8 @@ class ItemPreview extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFromCart: (id) => dispatch(deleteItem(id)),
+});
 
-export default ItemPreview;
+export default connect(null, mapDispatchToProps)(ItemPreview);
