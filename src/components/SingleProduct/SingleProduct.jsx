@@ -7,10 +7,17 @@ import styles from "./SingleProduct.module.css";
 import { addProduct } from "../../redux/cart/cart_reducer";
 
 class SingleProduct extends Component {
-  state = {
-    cover: "",
-    attributes: this.props.product.attributes,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      cover: "",
+      attributes: this.props.product.attributes,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(e) {
+    alert(`Selected ${e.target.title}`);
+  }
 
   componentDidMount() {
     this.setState({ cover: this.props.product.gallery[0] });
@@ -79,11 +86,9 @@ class SingleProduct extends Component {
                         return (
                           <button
                             type="button"
-                            className={
-                              item.isActive ? " radio active" : styles.radio
-                            }
+                            className={`${styles.radio} `}
                             key={item.id}
-                            onClick={this.toggleClass}
+                            onClick={this.handleClick}
                             style={{ backgroundColor: `${item.value}` }}
                             title={item.displayValue}
                           >
