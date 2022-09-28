@@ -9,6 +9,15 @@ import routes from "../../routes";
 import ItemCart from "../ItemCart";
 
 class CartProduct extends Component {
+  constructor(props) {
+    super(props);
+    this.getQuantity = this.getQuantity.bind(this);
+  }
+
+  getQuantity(quantity) {
+    this.setState({ totalQuantity: quantity });
+  }
+
   Total() {
     return this.props.products.reduce((acc, product) => {
       acc += product.prices[this.props.currency].amount;
@@ -18,7 +27,7 @@ class CartProduct extends Component {
 
   render() {
     const products = this.props.products;
-
+    console.log(this.state.totalQuantity);
     return (
       <>
         {products.length ? (
@@ -29,6 +38,7 @@ class CartProduct extends Component {
                   product={product}
                   key={product.id}
                   currency={this.props.currency}
+                  getQuantity={this.getQuantity}
                 />
               );
             })}

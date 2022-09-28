@@ -3,6 +3,7 @@ import { Component } from "react";
 
 import { ReactComponent as ArrowNext } from "../../images/arrow2.svg";
 import { ReactComponent as ArrowPrev } from "../../images/arrow1.svg";
+import Attributes from "../AttributesComponents/Main/attributes";
 import { connect } from "react-redux";
 import { deleteItem } from "../../redux/cart/cart_reducer";
 
@@ -15,12 +16,10 @@ class ItemCart extends Component {
       product: this.props.product,
       quantity: 1,
       photoId: 0,
+      active: false,
     };
   }
 
-  handleAttributes = () => {
-    alert("Selected");
-  };
   setNextPhoto() {
     this.setState({
       photoId: this.state.photoId + 1,
@@ -46,6 +45,7 @@ class ItemCart extends Component {
         quantity: (state.quantity += 1),
       };
     });
+    this.props.getQuantity(this.state.quantity);
   };
 
   decrement = (e) => {
@@ -74,34 +74,9 @@ class ItemCart extends Component {
             {product.prices[this.props.currency].amount}
           </p>
 
-          {product.attributes
-            ? product.attributes.map((attributes) => {
-                return (
-                  <div key={attributes.id}>
-                    <p className={styles.subtitle} key={attributes.id}>
-                      {attributes.name}:
-                    </p>
-
-                    <div className={styles.attributes}>
-                      {attributes.items.map((item) => {
-                        return (
-                          <button
-                            type="button"
-                            className={styles.radio}
-                            key={item.id}
-                            onClick={this.handleAttributes}
-                            style={{ backgroundColor: `${item.value}` }}
-                            title={item.displayValue}
-                          >
-                            {attributes.id === "Color" ? "" : item.displayValue}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })
-            : null}
+          {product.attributes ? (
+            <Attributes attributes={product.attributes} />
+          ) : null}
         </div>
 
         <div className={styles.wrapper}>

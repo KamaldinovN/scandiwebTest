@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 
 import styles from "./SingleProduct.module.css";
 import { addProduct } from "../../redux/cart/cart_reducer";
+import Attributes from "../AttributesComponents/Main";
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -73,34 +74,9 @@ class SingleProduct extends Component {
           <h1 className={styles.title}>{product.name}</h1>
           <h2 className={styles.brand}>{product.brand}</h2>
 
-          {this.state.attributes.length
-            ? this.state.attributes.map((attributes) => {
-                return (
-                  <div key={attributes.id}>
-                    <p className={styles.subtitle} key={attributes.id}>
-                      {attributes.name}:
-                    </p>
-
-                    <div className={styles.attributes}>
-                      {attributes.items.map((item) => {
-                        return (
-                          <button
-                            type="button"
-                            className={`${styles.radio} `}
-                            key={item.id}
-                            onClick={this.handleClick}
-                            style={{ backgroundColor: `${item.value}` }}
-                            title={item.displayValue}
-                          >
-                            {attributes.id === "Color" ? "" : item.displayValue}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })
-            : null}
+          {this.state.attributes.length ? (
+            <Attributes attributes={this.state.attributes} />
+          ) : null}
 
           <p className={styles.subtitle}>
             {product.inStock ? "price" : "last price"}:
