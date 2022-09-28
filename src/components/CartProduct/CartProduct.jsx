@@ -27,7 +27,6 @@ class CartProduct extends Component {
 
   render() {
     const products = this.props.products;
-    console.log(this.state.totalQuantity);
     return (
       <>
         {products.length ? (
