@@ -27,7 +27,11 @@
   color: #FFFFFF;
 
   border: none;
-  cursor: pointer;}
+  cursor: pointer;
+}
+.orderLink{
+  max-width: 279px;
+}
 
 .cart__invoice_order:hover,
 .cart__invoice_order:focus {

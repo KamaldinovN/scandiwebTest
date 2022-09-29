@@ -66,7 +66,7 @@ class CartProduct extends Component {
                 {this.Total().toFixed(2)}{" "}
               </span>
             </div>
-            <Link to={routes.checkout}>
+            <Link to={routes.checkout} className={styles.orderLink}>
               <button className={styles.cart__invoice_order}>Order</button>
             </Link>
           </div>

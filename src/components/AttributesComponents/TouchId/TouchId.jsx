@@ -20,7 +20,7 @@ class TouchId extends Component {
     return (
       <>
         <div className={styles.adds}>
-          <div className={styles.adds__title}>TOUCH ID IN KEYBOARD:</div>
+          <div className={"adds__title"}>TOUCH ID IN KEYBOARD:</div>
           <div className={styles.adds__container}>
             {this.state.isTouch.map((item) => {
               return (

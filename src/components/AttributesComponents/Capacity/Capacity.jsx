@@ -19,7 +19,7 @@ class Capacity extends Component {
     return (
       <>
         <div className={styles.capacity}>
-          <div className={styles.capacity__title}>CAPACITY:</div>
+          <div className={"capacity__title"}>CAPACITY:</div>
           <div className={styles.capacity__container}>
             {this.state.capacity.map((item) => {
               return (

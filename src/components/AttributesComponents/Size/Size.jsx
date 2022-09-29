@@ -21,7 +21,7 @@ class Size extends Component {
     return (
       <>
         <div className={styles.size}>
-          <div className={styles.size__title}>SIZE:</div>
+          <div className="size__title">SIZE:</div>
           <div className={styles.size__container}>
             {this.state.sizes.map((item) => {
               return (

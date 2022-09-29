@@ -18,13 +18,13 @@ class Color extends Component {
     return (
       <>
         <div className={styles.color}>
-          <div className={styles.color__title}>COLOR:</div>
+          <div className={"color__title"}>COLOR:</div>
           <div className={styles.color__container}>
             {this.state.colors.map((item) => {
               return (
                 <button
                   type="button"
-                  className={`radioColor ${item.isActive ? `active` : ""}`}
+                  className={`radioColor ${item.isActive ? `activeColor` : ""}`}
                   key={item.id}
                   id={item.id}
                   onClick={this.addClass}

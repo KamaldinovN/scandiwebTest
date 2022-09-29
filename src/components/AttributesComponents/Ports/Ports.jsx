@@ -19,7 +19,7 @@ class Ports extends Component {
     return (
       <>
         <div className={styles.adds}>
-          <div className={styles.adds__title}>WITH USB 3 PORTS:</div>
+          <div className={"adds__title"}>WITH USB 3 PORTS:</div>
           <div className={styles.adds__container}>
             {this.state.isPorts.map((item) => {
               return (

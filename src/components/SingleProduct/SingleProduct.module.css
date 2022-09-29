@@ -70,22 +70,6 @@
   margin-bottom: 40px;
 }
 
-.radio {
-  min-width: 63px;
-  height: 45px;
-
-  border: 1px solid #1d1f22;
-
-  color: #292929;
-  background-color: #ffffff;
-
-  font-family: Source Sans Pro, sans-serif;
-  font-weight: 400;
-
-  opacity: 1;
-  transition: opacity 250ms linear;
-  cursor: pointer;
-}
 
 .price {
   margin-bottom: 20px;

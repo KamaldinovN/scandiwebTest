@@ -1,5 +1,6 @@
 import styles from "./ItemPreview.module.css";
 import { Component } from "react";
+import Attributes from "../AttributesComponents/Main";
 import { deleteItem } from "../../redux/cart/cart_reducer";
 import { connect } from "react-redux";
 
@@ -40,35 +41,9 @@ class ItemPreview extends Component {
             {this.state.product.prices[this.props.currency].currency.symbol}
             {this.state.product.prices[this.props.currency].amount}
           </p>
-          {this.state.product.attributes
-            ? this.state.product.attributes.map((attributes) => {
-                return (
-                  <div key={attributes.id}>
-                    <p className={styles.subtitle} key={attributes.id}>
-                      {attributes.name}:
-                    </p>
-
-                    <div className={styles.attributes}>
-                      {attributes.items.map((item) => {
-                        return (
-                          <button
-                            type="button"
-                            className={
-                              item.isActive ? " radio active" : styles.radio
-                            }
-                            key={item.id}
-                            style={{ backgroundColor: `${item.value}` }}
-                            title={item.displayValue}
-                          >
-                            {attributes.id === "Color" ? "" : item.displayValue}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })
-            : null}
+          {this.state.product.attributes ? (
+            <Attributes attributes={this.state.product.attributes} />
+          ) : null}
 
           <div></div>
         </div>
