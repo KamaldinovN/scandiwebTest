@@ -2,7 +2,7 @@ import { Component } from "react";
 import { graphql } from "@apollo/client/react/hoc";
 import { LOAD_CATEGORIES } from "./GraphQl";
 import { Suspense, lazy } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Container from "./components/Container";
 import AppBar from "./components/AppBar";
@@ -46,6 +46,9 @@ class App extends Component {
 
         <Suspense fallback={<Loader />}>
           <Switch>
+            <Route exact path="/">
+              <Redirect to="/all" />
+            </Route>
             {data.categories &&
               data.categories.map((category) => {
                 return (
