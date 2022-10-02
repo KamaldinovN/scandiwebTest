@@ -34,7 +34,6 @@
 .product__wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 41px;
 }
 
@@ -65,7 +64,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 10px;
+    justify-content: space-between ;
+    margin: 12px 10px 12px 0;
+
 }
 
 .square__button {
@@ -107,7 +108,7 @@
 }
 
 .product__thumb {
-    height: 137px;
+    height: auto
 }
 
 .product__image {

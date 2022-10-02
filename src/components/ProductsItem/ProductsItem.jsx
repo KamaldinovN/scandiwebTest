@@ -10,8 +10,6 @@ import { addProduct } from "../../redux/cart/cart_reducer";
 class ProductsItem extends Component {
   addToCart = (product) => {
     this.props.dispatchToCart(product);
-
-    alert("Added to cart");
   };
 
   render() {

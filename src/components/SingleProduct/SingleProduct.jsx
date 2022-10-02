@@ -16,9 +16,7 @@ class SingleProduct extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick(e) {
-    alert(`Selected ${e.target.title}`);
-  }
+  handleClick() {}
 
   componentDidMount() {
     this.setState({ cover: this.props.product.gallery[0] });
@@ -26,8 +24,6 @@ class SingleProduct extends Component {
 
   addToCart = (product) => {
     this.props.dispatchToCart(product);
-
-    alert("Added to cart");
   };
 
   handleCover = (event) => {

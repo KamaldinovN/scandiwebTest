@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const LOAD_ALL = gql`
-  query {
-    categories {
+export const LOAD_CATEGORY = gql`
+  query load_category($category: String!) {
+    category(input: { title: $category }) {
       name
       products {
         id
@@ -69,6 +69,14 @@ export const LOAD_CURRENCIES = gql`
     currencies {
       label
       symbol
+    }
+  }
+`;
+
+export const LOAD_CATEGORIES = gql`
+  query {
+    categories {
+      name
     }
   }
 `;

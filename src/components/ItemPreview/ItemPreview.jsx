@@ -34,49 +34,52 @@ class ItemPreview extends Component {
   };
   render() {
     return (
-      <div className={styles.product__wrapper} key={this.state.product.id}>
-        <div className={styles.product__content}>
-          <p className={styles.product__name}>{this.state.product.name}</p>
-          <p className={styles.product__price}>
-            {this.state.product.prices[this.props.currency].currency.symbol}
-            {this.state.product.prices[this.props.currency].amount}
-          </p>
-          {this.state.product.attributes ? (
-            <Attributes attributes={this.state.product.attributes} />
-          ) : null}
+      <>
+        <div className={styles.product__wrapper} key={this.state.product.id}>
+          <div className={styles.product__content}>
+            <p className={styles.product__name}>{this.state.product.name}</p>
+            <p className={styles.product__price}>
+              {this.state.product.prices[this.props.currency].currency.symbol}
+              {this.state.product.prices[this.props.currency].amount}
+            </p>
+            {this.state.product.attributes ? (
+              <Attributes attributes={this.state.product.attributes} />
+            ) : null}
 
-          <div></div>
-        </div>
+            <div></div>
+          </div>
 
-        <div className={styles.counters}>
-          <button
-            type="button"
-            className={`${styles.square__button} ${styles.counters__up}`}
-            onClick={this.increment}
-          >
-            +
-          </button>
-          <span className={styles.counters__count}>{this.state.quantity}</span>
-          <button
-            type="button"
-            id={this.state.product.id}
-            className={`${styles.square__button} ${styles.counters__down}`}
-            onClick={this.decrement}
-          >
-            -
-          </button>
+          <div className={styles.counters}>
+            <button
+              type="button"
+              className={`${styles.square__button} ${styles.counters__up}`}
+              onClick={this.increment}
+            >
+              +
+            </button>
+            <span className={styles.counters__count}>
+              {this.state.quantity}
+            </span>
+            <button
+              type="button"
+              id={this.state.product.id}
+              className={`${styles.square__button} ${styles.counters__down}`}
+              onClick={this.decrement}
+            >
+              -
+            </button>
+          </div>
+          <div className={styles.product__thumb}>
+            <img
+              src={this.state.product.gallery[0]}
+              className={styles.product__image}
+              alt=""
+              width="105"
+              height="137"
+            />
+          </div>
         </div>
-
-        <div className={styles.product__thumb}>
-          <img
-            src={this.state.product.gallery[0]}
-            className={styles.product__image}
-            alt=""
-            width="105"
-            height="137"
-          />
-        </div>
-      </div>
+      </>
     );
   }
 }

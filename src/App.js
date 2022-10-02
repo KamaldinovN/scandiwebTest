@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { graphql } from "@apollo/client/react/hoc";
-import { LOAD_ALL } from "./GraphQl";
+import { LOAD_CATEGORIES } from "./GraphQl";
 import { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 
@@ -35,10 +35,7 @@ class App extends Component {
     const currency = this.state.currencies;
     const { data } = this.props;
     const { error, loading } = data;
-    const all = data?.categories?.reduce((acc, item) => {
-      acc.push(...item.products);
-      return acc;
-    }, []);
+
     return (
       <Container>
         <AppBar
@@ -49,28 +46,11 @@ class App extends Component {
 
         <Suspense fallback={<Loader />}>
           <Switch>
-            {data.categories && (
-              <Route exact path="/">
-                <Category
-                  products={all}
-                  error={data.error}
-                  loading={data.loading}
-                  currency={currency}
-                />
-              </Route>
-            )}
-
             {data.categories &&
               data.categories.map((category) => {
                 return (
                   <Route exact path={`/${category.name}`} key={category.name}>
-                    <Category
-                      currency={currency}
-                      products={category.products}
-                      name={category.name}
-                      error={data.error}
-                      loading={data.loading}
-                    />
+                    <Category currency={currency} name={category.name} />
                   </Route>
                 );
               })}
@@ -95,11 +75,9 @@ class App extends Component {
             <Route exact path="/checkout">
               <Checkout />
             </Route>
-
-            <Route path="*" element={<NoFound />} />
+            <Route exact path="*" element={<NoFound />} />
           </Switch>
         </Suspense>
-
         {error && <p>{JSON.stringify(error.message)}</p>}
 
         {loading && <Loader />}
@@ -108,4 +86,4 @@ class App extends Component {
   }
 }
 
-export default graphql(LOAD_ALL)(App);
+export default graphql(LOAD_CATEGORIES)(App);

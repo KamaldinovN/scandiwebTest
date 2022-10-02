@@ -100,11 +100,9 @@ class ItemCart extends Component {
               -
             </button>
           </div>
-
           <div className={styles.gallery}>
             {product.gallery.length > 1 ? (
               <>
-                {" "}
                 <ArrowPrev
                   className={styles.gallery__prev}
                   onClick={this.setPrevPhoto}
