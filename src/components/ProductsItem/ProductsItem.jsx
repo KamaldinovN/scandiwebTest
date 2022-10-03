@@ -9,6 +9,9 @@ import { addProduct } from "../../redux/cart/cart_reducer";
 
 class ProductsItem extends Component {
   addToCart = (product) => {
+    product.quantity = 1;
+    product.uniqueID = Date.now();
+    Object.preventExtensions(product);
     this.props.dispatchToCart(product);
   };
 

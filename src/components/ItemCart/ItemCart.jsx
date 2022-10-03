@@ -5,7 +5,11 @@ import { ReactComponent as ArrowNext } from "../../images/arrow2.svg";
 import { ReactComponent as ArrowPrev } from "../../images/arrow1.svg";
 import Attributes from "../AttributesComponents/Main/attributes";
 import { connect } from "react-redux";
-import { deleteItem } from "../../redux/cart/cart_reducer";
+import {
+  deleteItem,
+  quantityAdd,
+  quantityDel,
+} from "../../redux/cart/cart_reducer";
 
 class ItemCart extends Component {
   constructor(props) {
@@ -14,9 +18,7 @@ class ItemCart extends Component {
     this.setPrevPhoto = this.setPrevPhoto.bind(this);
     this.state = {
       product: this.props.product,
-      quantity: 1,
       photoId: 0,
-      active: false,
     };
   }
 
@@ -39,43 +41,31 @@ class ItemCart extends Component {
     }
   }
 
-  increment = () => {
-    this.setState((state) => {
-      return {
-        quantity: (state.quantity += 1),
-      };
-    });
-    this.props.getQuantity(this.state.quantity);
+  increment = (e) => {
+    this.props.addQuantity(e.target.id);
   };
 
   decrement = (e) => {
-    this.setState((state) => {
-      if (state.quantity > 1) {
-        return {
-          quantity: (state.quantity -= 1),
-        };
-      }
-    });
-    if (this.state.quantity <= 1) {
-      window.confirm(`Do you wont delete from cart ${e.target.id} ?`)
+    this.props.delQuantity(e.target.id);
+    if (this.props.product.quantity <= 1) {
+      window.confirm(`Do you wont delete from cart ${e.target.title} ?`)
         ? this.props.dispatchFromCart(e.target.id)
-        : console.log("+");
+        : this.props.addQuantity(e.target.id);
     }
   };
   render() {
-    const product = this.state.product;
     return (
-      <div className={styles.item} key={product.id}>
+      <div className={styles.item} key={this.state.product.id}>
         <div className={styles.product}>
-          <p className={styles.product__name}>{product.name}</p>
-          <p className={styles.product__brand}>{product.brand}</p>
+          <p className={styles.product__name}>{this.state.product.name}</p>
+          <p className={styles.product__brand}>{this.state.product.brand}</p>
           <p className={styles.product__price}>
-            {product.prices[this.props.currency].currency.symbol}
-            {product.prices[this.props.currency].amount}
+            {this.state.product.prices[this.props.currency].currency.symbol}
+            {this.state.product.prices[this.props.currency].amount}
           </p>
 
-          {product.attributes ? (
-            <Attributes attributes={product.attributes} />
+          {this.state.product.attributes ? (
+            <Attributes attributes={this.state.product.attributes} />
           ) : null}
         </div>
 
@@ -83,16 +73,19 @@ class ItemCart extends Component {
           <div className={styles.counters}>
             <button
               type="button"
+              title={this.state.product.id}
+              id={this.state.product.uniqueID}
               className={styles.counters__button}
               onClick={this.increment}
             >
               +
             </button>
             <span className={styles.counters__value}>
-              {this.state.quantity}
+              {this.props.product.quantity}
             </span>
             <button
-              id={this.props.product.id}
+              title={this.state.product.id}
+              id={this.state.product.uniqueID}
               type="button"
               className={styles.counters__button}
               onClick={this.decrement}
@@ -101,7 +94,7 @@ class ItemCart extends Component {
             </button>
           </div>
           <div className={styles.gallery}>
-            {product.gallery.length > 1 ? (
+            {this.state.product.gallery.length > 1 ? (
               <>
                 <ArrowPrev
                   className={styles.gallery__prev}
@@ -114,10 +107,10 @@ class ItemCart extends Component {
               </>
             ) : null}
             <img
-              src={product.gallery[this.state.photoId]}
+              src={this.state.product.gallery[this.state.photoId]}
               className={styles.gallery__image}
-              alt={product.name}
-              title={product.name}
+              alt={this.state.product.name}
+              title={this.state.product.name}
               width="141"
               height="185"
             />
@@ -129,6 +122,8 @@ class ItemCart extends Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   dispatchFromCart: (id) => dispatch(deleteItem(id)),
+  addQuantity: (id) => dispatch(quantityAdd(id)),
+  delQuantity: (id) => dispatch(quantityDel(id)),
 });
 
 export default connect(null, mapDispatchToProps)(ItemCart);

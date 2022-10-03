@@ -64,12 +64,15 @@ class CartPreview extends Component {
     }
   };
 
-  handleAttributes = () => {
-    // alert('Selected');
-  };
   Total() {
     return this.props.products.reduce((acc, product) => {
-      acc += product.prices[this.props.currency].amount;
+      acc += product.prices[this.props.currency].amount * product.quantity;
+      return acc;
+    }, 0);
+  }
+  TotalQuantity() {
+    return this.props.products.reduce((acc, product) => {
+      acc += product.quantity;
       return acc;
     }, 0);
   }
@@ -90,9 +93,7 @@ class CartPreview extends Component {
             />
 
             {this.props.products.length ? (
-              <span className={styles.counter}>
-                {this.props.products.length}
-              </span>
+              <span className={styles.counter}>{this.TotalQuantity()}</span>
             ) : null}
           </button>
 
@@ -101,7 +102,7 @@ class CartPreview extends Component {
               <div className={styles.modal}>
                 <p className={styles.title}>
                   <span className={styles.title__name}>My Bag</span>,{" "}
-                  {products.length} items
+                  {this.TotalQuantity()} items
                 </p>
 
                 {products.length ? (

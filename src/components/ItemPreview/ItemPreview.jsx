@@ -1,35 +1,31 @@
 import styles from "./ItemPreview.module.css";
 import { Component } from "react";
 import Attributes from "../AttributesComponents/Main";
-import { deleteItem } from "../../redux/cart/cart_reducer";
+import {
+  deleteItem,
+  quantityAdd,
+  quantityDel,
+} from "../../redux/cart/cart_reducer";
 import { connect } from "react-redux";
 
 class ItemPreview extends Component {
-  state = {
-    quantity: 1,
-    product: this.props.products,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: this.props.products,
+    };
+  }
 
-  increment = () => {
-    this.setState((state) => {
-      return {
-        quantity: (state.quantity += 1),
-      };
-    });
+  increment = (e) => {
+    this.props.addQuantity(e.target.id);
   };
 
   decrement = (e) => {
-    this.setState((state) => {
-      if (state.quantity > 1) {
-        return {
-          quantity: (state.quantity -= 1),
-        };
-      }
-    });
-    if (this.state.quantity <= 1) {
+    this.props.delQuantity(e.target.id);
+    if (this.props.products.quantity <= 1) {
       window.confirm(`Do you wont delete from cart ${e.target.id} ?`)
         ? this.props.dispatchFromCart(e.target.id)
-        : console.log("+");
+        : this.props.addQuantity(e.target.id);
     }
   };
   render() {
@@ -54,15 +50,16 @@ class ItemPreview extends Component {
               type="button"
               className={`${styles.square__button} ${styles.counters__up}`}
               onClick={this.increment}
+              id={this.state.product.uniqueID}
             >
               +
             </button>
             <span className={styles.counters__count}>
-              {this.state.quantity}
+              {this.props.products.quantity}
             </span>
             <button
               type="button"
-              id={this.state.product.id}
+              id={this.state.product.uniqueID}
               className={`${styles.square__button} ${styles.counters__down}`}
               onClick={this.decrement}
             >
@@ -85,6 +82,8 @@ class ItemPreview extends Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   dispatchFromCart: (id) => dispatch(deleteItem(id)),
+  addQuantity: (id) => dispatch(quantityAdd(id)),
+  delQuantity: (id) => dispatch(quantityDel(id)),
 });
 
 export default connect(null, mapDispatchToProps)(ItemPreview);

@@ -38,7 +38,6 @@ class Category extends Component {
     const lastPostIndex = this.state.currentPage * this.state.itemPerPage;
     const firstPostIndex = lastPostIndex - this.state.itemPerPage;
     const currentItem = products.slice(firstPostIndex, lastPostIndex);
-    console.log(products);
     return (
       <main>
         <section className={styles.category}>

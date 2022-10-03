@@ -9,18 +9,24 @@ import routes from "../../routes";
 import ItemCart from "../ItemCart";
 
 class CartProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.getQuantity = this.getQuantity.bind(this);
+  incrementQuantity() {
+    // eslint-disable-next-line
+    this.setState({ totalQuantity: (this.state.totalQuantity += 1) });
   }
-
-  getQuantity(quantity) {
-    this.setState({ totalQuantity: quantity });
+  decrementQuantity() {
+    // eslint-disable-next-line
+    this.setState({ totalQuantity: (this.state.totalQuantity -= 1) });
   }
 
   Total() {
     return this.props.products.reduce((acc, product) => {
-      acc += product.prices[this.props.currency].amount;
+      acc += product.prices[this.props.currency].amount * product.quantity;
+      return acc;
+    }, 0);
+  }
+  TotalQuantity() {
+    return this.props.products.reduce((acc, product) => {
+      acc += product.quantity;
       return acc;
     }, 0);
   }
@@ -37,7 +43,8 @@ class CartProduct extends Component {
                   product={product}
                   key={product.id}
                   currency={this.props.currency}
-                  getQuantity={this.getQuantity}
+                  incrementQuantity={this.incrementQuantity}
+                  decrementQuantity={this.decrementQuantity}
                 />
               );
             })}
@@ -56,7 +63,7 @@ class CartProduct extends Component {
             </div>
             <div>
               Quantity:{" "}
-              <span className={styles.quantity}>{products.length}</span>
+              <span className={styles.quantity}>{this.TotalQuantity()}</span>
             </div>
             <div>
               Total:{" "}

@@ -14,15 +14,17 @@ class SingleProduct extends Component {
       cover: "",
       attributes: this.props.product.attributes,
     };
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {}
 
   componentDidMount() {
     this.setState({ cover: this.props.product.gallery[0] });
   }
 
   addToCart = (product) => {
+    product.quantity = 1;
+    product.uniqueID = Date.now();
+    Object.preventExtensions(product);
     this.props.dispatchToCart(product);
   };
 
@@ -86,7 +88,9 @@ class SingleProduct extends Component {
           <button
             type="button"
             className={styles.add}
-            onClick={() => this.addToCart(product)}
+            onClick={() => {
+              this.addToCart(product);
+            }}
             disabled={!product.inStock}
           >
             {product.inStock ? "add to cart" : "Out of stock"}
