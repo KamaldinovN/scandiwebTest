@@ -9,10 +9,13 @@ import { addProduct } from "../../redux/cart/cart_reducer";
 
 class ProductsItem extends Component {
   addToCart = (product) => {
-    product.quantity = 1;
-    product.uniqueID = Date.now();
-    Object.preventExtensions(product);
-    this.props.dispatchToCart(product);
+    let objCopy = JSON.parse(JSON.stringify(product));
+    objCopy.quantity = 1;
+    objCopy.uniqueID = Date.now();
+    objCopy.attributes.forEach((item) => {
+      item.items[0] = Object.assign({ isActive: true }, item.items[0]);
+    });
+    this.props.dispatchToCart(objCopy);
   };
 
   render() {

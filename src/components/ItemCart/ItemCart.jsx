@@ -65,7 +65,10 @@ class ItemCart extends Component {
           </p>
 
           {this.state.product.attributes ? (
-            <Attributes attributes={this.state.product.attributes} />
+            <Attributes
+              attributes={this.state.product.attributes}
+              uniqueID={this.state.product.uniqueID}
+            />
           ) : null}
         </div>
 

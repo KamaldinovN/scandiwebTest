@@ -110,7 +110,7 @@ class CartPreview extends Component {
                     return (
                       <ItemPreview
                         products={product}
-                        key={product.id}
+                        key={product.uniqueID}
                         currency={this.props.currency}
                       />
                     );

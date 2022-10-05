@@ -41,7 +41,7 @@ class CartProduct extends Component {
               return (
                 <ItemCart
                   product={product}
-                  key={product.id}
+                  key={product.uniqueID}
                   currency={this.props.currency}
                   incrementQuantity={this.incrementQuantity}
                   decrementQuantity={this.decrementQuantity}

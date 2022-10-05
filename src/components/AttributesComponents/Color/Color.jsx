@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import styles from "./Color.css";
+import { setActive } from "../../../redux/cart/cart_reducer";
+import { connect } from "react-redux";
 
 class Color extends Component {
   state = {
@@ -13,6 +15,7 @@ class Color extends Component {
         isActive: e.target.id === color.id,
       })),
     });
+    this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
   };
   render() {
     return (
@@ -39,5 +42,8 @@ class Color extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  setActive: (idProduct) => dispatch(setActive(idProduct)),
+});
 
-export default Color;
+export default connect(null, mapDispatchToProps)(Color);

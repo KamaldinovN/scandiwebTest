@@ -23,7 +23,7 @@ class ItemPreview extends Component {
   decrement = (e) => {
     this.props.delQuantity(e.target.id);
     if (this.props.products.quantity <= 1) {
-      window.confirm(`Do you wont delete from cart ${e.target.id} ?`)
+      window.confirm(`Do you wont delete from cart ${e.target.title} ?`)
         ? this.props.dispatchFromCart(e.target.id)
         : this.props.addQuantity(e.target.id);
     }
@@ -39,7 +39,10 @@ class ItemPreview extends Component {
               {this.state.product.prices[this.props.currency].amount}
             </p>
             {this.state.product.attributes ? (
-              <Attributes attributes={this.state.product.attributes} />
+              <Attributes
+                attributes={this.state.product.attributes}
+                uniqueID={this.state.product.uniqueID}
+              />
             ) : null}
 
             <div></div>
@@ -59,6 +62,7 @@ class ItemPreview extends Component {
             </span>
             <button
               type="button"
+              title={this.state.product.id}
               id={this.state.product.uniqueID}
               className={`${styles.square__button} ${styles.counters__down}`}
               onClick={this.decrement}

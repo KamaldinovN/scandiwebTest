@@ -12,22 +12,42 @@ class SingleProduct extends Component {
     super(props);
     this.state = {
       cover: "",
-      attributes: this.props.product.attributes,
     };
-    // this.handleClick = this.handleClick.bind(this);
   }
-
   componentDidMount() {
     this.setState({ cover: this.props.product.gallery[0] });
   }
 
   addToCart = (product) => {
-    product.quantity = 1;
-    product.uniqueID = Date.now();
-    Object.preventExtensions(product);
-    this.props.dispatchToCart(product);
+    let objCopy = JSON.parse(JSON.stringify(product));
+    objCopy.quantity = 1;
+    objCopy.uniqueID = Date.now();
+    console.log(objCopy);
+    // eslint-disable-next-line
+    // objCopy.attributes.map((item) => {
+    //   if (item.id === "Size") {
+    //     item.items.map((item) => (item.isActive = false));
+    //     item.items[].isActive = true;
+    //   }
+    //   if (item.id === "Color") {
+    //     item.items.map((item) => (item.isActive = false));
+    //     item.items[].isActive = true;
+    //   }
+    //   if (item.id === "Capacity") {
+    //     item.items.map((item) => (item.isActive = false));
+    //     item.items[].isActive = true;
+    //   }
+    //   if (item.id === "With USB 3 ports") {
+    //     item.items.map((item) => (item.isActive = false));
+    //     item.items[this.state.isPort].isActive = true;
+    //   }
+    //   if (item.id === "Touch ID in keyboard") {
+    //     item.items.map((item) => (item.isActive = false));
+    //     item.items[this.state.isTouch].isActive = true;
+    //   }
+    // });
+    // this.props.dispatchToCart(objCopy);
   };
-
   handleCover = (event) => {
     this.setState({ cover: event.target.src });
   };
@@ -72,8 +92,8 @@ class SingleProduct extends Component {
           <h1 className={styles.title}>{product.name}</h1>
           <h2 className={styles.brand}>{product.brand}</h2>
 
-          {this.state.attributes.length ? (
-            <Attributes attributes={this.state.attributes} />
+          {this.props.product.attributes.length ? (
+            <Attributes attributes={this.props.product.attributes} />
           ) : null}
 
           <p className={styles.subtitle}>

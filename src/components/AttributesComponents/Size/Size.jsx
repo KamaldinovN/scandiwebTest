@@ -2,6 +2,8 @@ import React from "react";
 import { Component } from "react";
 import styles from "./Size.css";
 import "../Main/radiostyles.css";
+import { setActive } from "../../../redux/cart/cart_reducer";
+import { connect } from "react-redux";
 
 class Size extends Component {
   state = {
@@ -15,6 +17,7 @@ class Size extends Component {
         isActive: e.target.id === size.id,
       })),
     });
+    this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
   };
 
   render() {
@@ -43,5 +46,8 @@ class Size extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  setActive: (idProduct) => dispatch(setActive(idProduct)),
+});
 
-export default Size;
+export default connect(null, mapDispatchToProps)(Size);

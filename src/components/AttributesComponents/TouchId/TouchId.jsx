@@ -2,6 +2,8 @@ import { Component } from "react";
 import React from "react";
 import "./TouchId.css";
 import styles from "../Ports/Ports.css";
+import { setActive } from "../../../redux/cart/cart_reducer";
+import { connect } from "react-redux";
 
 class TouchId extends Component {
   state = {
@@ -15,6 +17,7 @@ class TouchId extends Component {
         isActive: e.target.id === item.id,
       })),
     });
+    this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
   };
   render() {
     return (
@@ -42,5 +45,8 @@ class TouchId extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  setActive: (idProduct) => dispatch(setActive(idProduct)),
+});
 
-export default TouchId;
+export default connect(null, mapDispatchToProps)(TouchId);

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styles from "./Ports.css";
 import "../Main/radiostyles.css";
+import { setActive } from "../../../redux/cart/cart_reducer";
+import { connect } from "react-redux";
 
 class Ports extends Component {
   state = {
@@ -14,6 +16,7 @@ class Ports extends Component {
         isActive: e.target.id === item.id,
       })),
     });
+    this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
   };
   render() {
     return (
@@ -41,5 +44,8 @@ class Ports extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  setActive: (idProduct) => dispatch(setActive(idProduct)),
+});
 
-export default Ports;
+export default connect(null, mapDispatchToProps)(Ports);
