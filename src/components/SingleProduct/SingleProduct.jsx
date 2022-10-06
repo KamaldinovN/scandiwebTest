@@ -22,31 +22,7 @@ class SingleProduct extends Component {
     let objCopy = JSON.parse(JSON.stringify(product));
     objCopy.quantity = 1;
     objCopy.uniqueID = Date.now();
-    console.log(objCopy);
-    // eslint-disable-next-line
-    // objCopy.attributes.map((item) => {
-    //   if (item.id === "Size") {
-    //     item.items.map((item) => (item.isActive = false));
-    //     item.items[].isActive = true;
-    //   }
-    //   if (item.id === "Color") {
-    //     item.items.map((item) => (item.isActive = false));
-    //     item.items[].isActive = true;
-    //   }
-    //   if (item.id === "Capacity") {
-    //     item.items.map((item) => (item.isActive = false));
-    //     item.items[].isActive = true;
-    //   }
-    //   if (item.id === "With USB 3 ports") {
-    //     item.items.map((item) => (item.isActive = false));
-    //     item.items[this.state.isPort].isActive = true;
-    //   }
-    //   if (item.id === "Touch ID in keyboard") {
-    //     item.items.map((item) => (item.isActive = false));
-    //     item.items[this.state.isTouch].isActive = true;
-    //   }
-    // });
-    // this.props.dispatchToCart(objCopy);
+    this.props.dispatchToCart(objCopy);
   };
   handleCover = (event) => {
     this.setState({ cover: event.target.src });
