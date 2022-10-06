@@ -18,6 +18,13 @@ class Size extends Component {
       })),
     });
     this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
+    sessionStorage.setItem(
+      "activeAttribute",
+      JSON.stringify({
+        ...JSON.parse(sessionStorage.getItem("activeAttribute")),
+        size: this.state.sizes.findIndex((item) => item.id === e.target.id),
+      })
+    );
   };
 
   render() {

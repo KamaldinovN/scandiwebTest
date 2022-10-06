@@ -17,6 +17,15 @@ class Capacity extends Component {
       })),
     });
     this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
+    sessionStorage.setItem(
+      "activeAttribute",
+      JSON.stringify({
+        ...JSON.parse(sessionStorage.getItem("activeAttribute")),
+        capacity: this.state.capacity.findIndex(
+          (item) => item.id === e.target.id
+        ),
+      })
+    );
   };
   render() {
     return (

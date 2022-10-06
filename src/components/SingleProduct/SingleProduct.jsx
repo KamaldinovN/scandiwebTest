@@ -22,6 +22,51 @@ class SingleProduct extends Component {
     let objCopy = JSON.parse(JSON.stringify(product));
     objCopy.quantity = 1;
     objCopy.uniqueID = Date.now();
+    let activeAttr = JSON.parse(sessionStorage.getItem("activeAttribute"));
+    //eslint-disable-next-line
+    objCopy.attributes.map((item) => {
+      if (item.id === "Size") {
+        item.items.map((elem) => (elem.isActive = false));
+        if (activeAttr !== null && activeAttr.size) {
+          item.items[activeAttr.size].isActive = true;
+        } else {
+          item.items[0].isActive = true;
+        }
+      }
+      if (item.id === "Color") {
+        item.items.map((elem) => (elem.isActive = false));
+        if (activeAttr !== null && activeAttr.color) {
+          item.items[activeAttr.color].isActive = true;
+        } else {
+          item.items[0].isActive = true;
+        }
+      }
+      if (item.id === "Capacity") {
+        item.items.map((elem) => (elem.isActive = false));
+        if (activeAttr !== null && activeAttr.capacity) {
+          item.items[activeAttr.capacity].isActive = true;
+        } else {
+          item.items[0].isActive = true;
+        }
+      }
+      if (item.id === "With USB 3 ports") {
+        item.items.map((elem) => (elem.isActive = false));
+        if (activeAttr !== null && activeAttr.ports) {
+          item.items[activeAttr.ports].isActive = true;
+        } else {
+          item.items[0].isActive = true;
+        }
+      }
+      if (item.id === "Touch ID in keyboard") {
+        item.items.map((elem) => (elem.isActive = false));
+        if (activeAttr !== null && activeAttr.touchId) {
+          item.items[activeAttr.touchId].isActive = true;
+        } else {
+          item.items[0].isActive = true;
+        }
+      }
+    });
+    sessionStorage.removeItem("activeAttribute");
     this.props.dispatchToCart(objCopy);
   };
   handleCover = (event) => {
@@ -30,6 +75,7 @@ class SingleProduct extends Component {
 
   render() {
     const product = this.props.product;
+    console.log(product);
     return (
       <article className={styles.product}>
         <div className={styles.gallery}>

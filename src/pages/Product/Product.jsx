@@ -18,30 +18,27 @@ class Product extends Component {
     const { loading, error } = data;
     let copyObj = {};
     if (data.loading) {
-      console.log("Wait");
+      return <Loader />;
     } else {
-      if (data.product.inStock) {
-        copyObj = JSON.parse(JSON.stringify(data.product));
-        // eslint-disable-next-line
-        copyObj.attributes.map((item) => {
-          // eslint-disable-next-line
-          if (item.id === "Size") {
-            item.items[0].isActive = true;
-          }
-          if (item.id === "Color") {
-            item.items[0].isActive = true;
-          }
-          if (item.id === "Capacity") {
-            item.items[0].isActive = true;
-          }
-          if (item.id === "With USB 3 ports") {
-            item.items[0].isActive = true;
-          }
-          if (item.id === "Touch ID in keyboard") {
-            item.items[0].isActive = true;
-          }
-        });
-      }
+      copyObj = JSON.parse(JSON.stringify(data.product));
+      // eslint-disable-next-line
+      copyObj.attributes.map((item) => {
+        if (item.id === "Size") {
+          item.items[0].isActive = true;
+        }
+        if (item.id === "Color") {
+          item.items[0].isActive = true;
+        }
+        if (item.id === "Capacity") {
+          item.items[0].isActive = true;
+        }
+        if (item.id === "With USB 3 ports") {
+          item.items[0].isActive = true;
+        }
+        if (item.id === "Touch ID in keyboard") {
+          item.items[0].isActive = true;
+        }
+      });
     }
     return (
       <main className={styles.main}>

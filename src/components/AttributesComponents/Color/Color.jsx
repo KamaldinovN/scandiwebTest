@@ -16,6 +16,13 @@ class Color extends Component {
       })),
     });
     this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
+    sessionStorage.setItem(
+      "activeAttribute",
+      JSON.stringify({
+        ...JSON.parse(sessionStorage.getItem("activeAttribute")),
+        color: this.state.colors.findIndex((item) => item.id === e.target.id),
+      })
+    );
   };
   render() {
     return (

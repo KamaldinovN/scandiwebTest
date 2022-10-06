@@ -17,6 +17,13 @@ class Ports extends Component {
       })),
     });
     this.props.setActive([this.props.uniqueID, this.props.arr.id, e.target.id]);
+    sessionStorage.setItem(
+      "activeAttribute",
+      JSON.stringify({
+        ...JSON.parse(sessionStorage.getItem("activeAttribute")),
+        ports: this.state.isPorts.findIndex((item) => item.id === e.target.id),
+      })
+    );
   };
   render() {
     return (
