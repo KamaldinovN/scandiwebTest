@@ -20,7 +20,7 @@ import "./styles/normalizer.css";
 import "./fonts/fonts.css";
 import "./index.css";
 
-const link = from([new HttpLink({ uri: "http://localhost:4000/" })]);
+const link = from([new HttpLink({ uri: "https://scanssiend.onrender.com/" })]);
 
 const client = new ApolloClient({
   link: link,
